@@ -1,0 +1,64 @@
+! ----------------------------------------------------------------------------------
+! Input file for LittleHarsh (08/02/2016 Nabil)
+! Instructions, advices, suggestions.
+!   Stop reading and run away.
+!
+!
+!
+! ----------------------------------------------------------------------------------
+! Fluid properties -----------------------------------------------------------------
+Re=       1452.d0 ! Reynolds number, based on bulk velocity and channel half-height
+
+! Box geometry and spacial discretisation ------------------------------------------
+alp   =     1.0d0 ! The streamwise periodicity Lx of the box is Lx=2*pi/alp
+bet   =     2.0d0 ! The spanwise periodicity Lz of the box is Lz=2*pi/bet
+Ngalx1=       576 !864 ! 384 ! 576 ! 192 ! collocation points in the x direction, band #1
+Ngalx2=       144 ! 192 ! 192 ! collocation points in the x direction, band #2
+Ngalz1=       288 !432 ! 360 ! collocation points per unity length in the z direction, band #1
+Ngalz2=       144 ! 192 ! collocation points per unity length in the z direction, band #2
+ny    =       177 ! grid points in the y direction, y(0)=-1,y(ny-1)=1
+dyq   =     15.d0 ! dymax/dymin
+pp    =         5 ! y polinomial exponent
+
+! Initial conditions ---------------------------------------------------------------
+flgin =         1 ! 1 for initial conditions borrowed from another simulation
+                  ! 2 for continuing simulation
+                  ! 3 parabolic profile
+                  ! 4 --
+fnmeb =u1_0256x0256x0453_t06071.dat
+                  ! initial conditions file path, if flgin=flag_init=1
+dirin =./input/
+dirout=./output/
+
+! Parameters of the numerical method I --------------------------------------------- 
+CFL   =     0.7d0 !0.7d0 ! CFL
+nwrite=        10 !1000 ! time steps between outputs in terminal
+flpress    =    0 ! 0 for constant flow rate
+                  ! 1 for constant pressure gradient
+mpgx  =-2.8577e-2 !-3.1289e-3 ! if flpress=1, mpgx is the prescribed mean pressure gradient
+                  !-3.128909911329269e-03
+
+! Parameters of the numerical method II -------------------------------------------- 
+Kib   =      1.d0 ! immersed boundaries forcing parameter
+maxerr=     1.d-8 ! maximum error for convergence in pressure
+maxt  =  2000.0d0 ! maximum simulation time 't'
+maxA  =      4.d0 ! boundary condition stability precission limiter
+FFTbot=         8 ! Defines the last physical space plane (bottom band) for tridiag solve
+FFTtop=       146 ! Defines the last physical space plane (top band) for tridiag solve
+
+! Surface Geometry -----------------------------------------------------------------
+type  =         3 ! 0 smooth wall
+                  ! 1 superhydrophobic stuff
+                  ! 2 amazing roughness
+                  ! 3 CoolCanopies 
+                  ! 4 --
+ntilex=       008 ! number of tiles in x in the periodic box (mod(mgalz1/ntilex)) = 0)
+ntilez=       004 ! number of tiles in z in the periodic box (mod(mgalz1/ntilez)) = 0)
+posth =     0.5d0 ! height of canopy in outer units
+npeakx=        13 ! number of points in x representing the post tip
+npeakz=        13 ! number of points in z representing the post tip
+Lfracx=     3.0d0 ! Gas fraction x
+Lfracz=     3.0d0 ! Gas fraction z
+dsty  =       100 ! Number of points representing canopy element in y
+dstx  =        13 ! Number of points representing canopy element in x
+dstz  =        13 ! Number of points representing canopy element in z

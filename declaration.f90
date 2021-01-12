@@ -26,6 +26,7 @@ module declaration
   integer,pointer:: jlim(:,:,:) ! Change name ffs
   integer,pointer:: planelim(:,:,:)
   integer,pointer:: limPL_incw(:,:,:),limPL_excw(:,:,:)
+  integer,pointer:: limPL_FFT(:,:,:)
   integer,pointer:: bandPL(:)
   integer,pointer:: bandPL_FFT(:)
   integer           jgal(3,2),igal,kgal !TODO get rid of jgal
@@ -48,7 +49,7 @@ module declaration
   real(8) nextqt
   integer geometry_type
   integer kRK
-  real(8) t,dt,CFL,maxt,dtv,dtc,dti,Re,t_start
+  real(8) t,dt,CFL,maxt,dtv,dtc,dti,Re
 
   integer nribs,npeak !TODO remove
   integer dnx,dnz
@@ -58,6 +59,7 @@ module declaration
   real(8) dyub2,dyut2,dyvb2,dyvt2
   real(8) posth
   real(8) post_spacing
+  real(8) shift_stag
 
   real(8) alp,bet             ! Wavelengths
   real(8) Lx,Ly,Lz            ! Size of the computational box
@@ -124,8 +126,9 @@ module declaration
   character*4 ext1,ext2,ext3
   character*5 ext4
 
-  integer, pointer :: nlist_ib(:)
-  integer, pointer :: list_ib(:,:,:)!,nyIB1(:),nyIB2(:)
+  integer, pointer :: nlist_ib_s(:), nlist_ib_f(:), nlist_ib(:)
+  integer, pointer :: s_list_ib(:,:,:), f_list_ib(:,:,:), list_ib(:,:,:)
+  real(8), pointer :: w_list_ib(:,:,:)
   integer, pointer :: nyuIB1(:),nyuIB2(:),nyvIB1(:),nyvIB2(:)
   integer          :: nyu11,nyu21,nyu12,nyu22,nyv11,nyv21,nyv12,nyv22
   real(8), pointer :: A_ib(:,:,:)

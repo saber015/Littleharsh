@@ -1,0 +1,68 @@
+! ----------------------------------------------------------------------------------
+! Input file for LittleHarsh (08/02/2016 Nabil)
+! Instructions, advices, suggestions.
+!   Stop reading and run away.
+!
+!
+!
+! ----------------------------------------------------------------------------------
+! Fluid properties -----------------------------------------------------------------
+Re=      2870.5d0 ! Reynolds number, based on bulk velocity and channel half-height
+
+! Box geometry and spacial discretisation ------------------------------------------
+alp   =      1.d0 ! The streamwise periodicity Lx of the box is Lx=2*pi/alp
+bet   =      2.d0 ! The spanwise periodicity Lz of the box is Lz=2*pi/bet
+Ngalx1=       192 !864 ! 384 ! 576 ! 192 ! collocation points in the x direction, band #1
+Ngalx2=       192 ! 192 ! 192 ! collocation points in the x direction, band #2
+Ngalz1=      4032 ! 360 ! collocation points per unity length in the z direction, band #1
+Ngalz2=       192 ! 192 ! collocation points per unity length in the z direction, band #2
+ny    =       177 ! grid points in the y direction, y(0)=-1,y(ny-1)=1
+dyq   =     10.d0 ! dymax/dymin
+pp    =         5 ! y polinomial exponent
+
+! Initial conditions ---------------------------------------------------------------
+flgin =         2 ! 1 for initial conditions borrowed from another simulation
+                  ! 2 for continuing simulation
+                  ! 3 parabolic profile
+                  ! 4 --
+fnmeb =u1_0128x2688x0177_t01653.dat
+                  ! initial conditions file path, if flgin=flag_init=1
+dirin =./input/
+dirout=./output/
+
+! Parameters of the numerical method I ---------------------------------------------
+CFL   =     0.7d0 !0.7d0 ! CFL
+nwrite=      4000 ! time steps between outputs in terminal
+flpress    =    1 ! 0 for constant flow rate
+                  ! 1 for constant pressure gradient
+mpgx  =-3.9321e-3 ! if flpress=1, mpgx is the prescribed mean pressure gradient
+                  !-3.128909911329269e-03
+
+! Parameters of the numerical method II -------------------------------------------- 
+Kib   =      1.d0 ! immersed boundaries forcing parameter
+maxerr=     1.d-8 ! maximum error for convergence in pressure
+maxt  =  2000.0d0 ! maximum simulation time 't'
+maxA  =      4.d0 ! boundary condition stability precission limiter
+FFTbot=         7 ! Defines the last physical space plane (bottom band) for tridiag solve
+FFTtop=       146 ! Defines the last physical space plane (top band) for tridiag solve
+xi1   =         0 ! 12.d0 ! Decay constant in low pass filter function
+xi2   =         0 ! -32.d0 ! -128.d0 ! Decay constant in low pass filter function
+
+! Surface Geometry -----------------------------------------------------------------
+type  =         4 ! 0 smooth wall
+                  ! 1 superhydrophobic stuff
+                  ! 2 amazing roughness
+                  ! 3 CoolCanopies 
+                  ! 4 Substrates
+ntilex=       001 ! number of tiles in x in the periodic box (mod(mgalz1/ntilex)) = 0)
+ntilez=       192 ! number of tiles in z in the periodic box (mod(mgalz1/ntilez)) = 0)
+posth =  0.0654d0 ! height of roughness, canopy or permeable substrate in outer units
+npeakx=        07 ! number of points in x representing the post tip (roughness:2)
+npeakz=        07 ! number of points in z representing the post tip (roughness: 2)
+Lfracx=     3.0d0 ! Gas fraction x (SHS: 1)
+Lfracz=     3.0d0 ! Gas fraction z (SHS: 1)
+dsty  =        63 ! Number of points representing canopy or substrate in y, vgrid (for substrate, points exluding the first tile in y) 
+dstx  =       192 ! Number of points representing solid element in x for canopies or substrates
+dstz  =         8 ! Number of points representing solid element in z for canopies or substrates
+nsolid=         7 ! Number of points representing solid element in y (vgrid) for permeable substrates, constant-dy region 
+nfluid=        14 ! Number of points representing fluid element in y (vgrid) for permeable substrates, constant-dy region
